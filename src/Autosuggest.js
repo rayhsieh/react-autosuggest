@@ -83,9 +83,12 @@ class Autosuggest extends Component {
               isCollapsed, revealSuggestions, lastAction } = nextProps;
       const { value } = inputProps;
 
-      if (isCollapsed && lastAction !== 'click' && lastAction !== 'enter' &&
-          suggestions.length > 0 && shouldRenderSuggestions(value)) {
-        revealSuggestions();
+      if (suggestions.length > 0 && shouldRenderSuggestions(value)) {
+        this.maybeSelectFirstSuggestion();
+
+        if (isCollapsed && lastAction !== 'click' && lastAction !== 'enter') {
+          revealSuggestions();
+        }
       }
     }
   }
@@ -157,14 +160,11 @@ class Autosuggest extends Component {
     }
   }
 
-  maybeSelectFirstSuggestion(event, value) {
+  maybeSelectFirstSuggestion() {
     const { selectFirstSuggestion, multiSection, updateFocusedSuggestion } = this.props;
 
     if (selectFirstSuggestion) {
-      let sectionIndex = multiSection ? 0 : null;
-      let suggestionIndex = 0;
-
-      updateFocusedSuggestion(sectionIndex, suggestionIndex);
+      updateFocusedSuggestion(multiSection ? 0 : null, 0);
     }
   }
 
@@ -202,8 +202,11 @@ class Autosuggest extends Component {
       onFocus: event => {
         if (!this.justClickedOnSuggestion) {
           inputFocused(shouldRenderSuggestions(value));
-          this.maybeSelectFirstSuggestion(event, value);
           onFocus && onFocus(event);
+
+          if (suggestions.length > 0) {
+            this.maybeSelectFirstSuggestion();
+          }
         }
       },
       onBlur: event => {
@@ -225,7 +228,6 @@ class Autosuggest extends Component {
         this.maybeCallOnChange(event, value, 'type');
         inputChanged(shouldRenderSuggestions(value), 'type');
         this.maybeCallOnSuggestionsUpdateRequested({ value, reason: 'type' });
-        this.maybeSelectFirstSuggestion(event, value);
       },
       onKeyDown: (event, data) => {
         switch (event.key) {
@@ -257,7 +259,7 @@ class Autosuggest extends Component {
           case 'Enter': {
             const focusedSuggestion = this.getFocusedSuggestion();
 
-            if (focusedSuggestion) {
+            if (focusedSuggestion !== null) {
               const newValue = getSuggestionValue(focusedSuggestion);
 
               closeSuggestions('enter');
