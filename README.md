@@ -120,7 +120,8 @@ class Example extends React.Component {
                    onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
                    getSuggestionValue={getSuggestionValue}
                    renderSuggestion={renderSuggestion}
-                   inputProps={inputProps} />
+                   inputProps={inputProps}
+                    selectFirstSuggestion={false} />
     );
   }
 }
@@ -139,6 +140,7 @@ class Example extends React.Component {
 * [`getSectionSuggestions`](#getSectionSuggestionsProp)
 * [`onSuggestionSelected`](#onSuggestionSelectedProp)
 * [`focusInputOnSuggestionClick`](#focusInputOnSuggestionClickProp)
+* [`selectFirstSuggestion`](#selectFirstSuggestion)
 * [`theme`](#themeProp)
 * [`id`](#idProp)
 
@@ -411,6 +413,15 @@ You might want to do something like this:
 ```
 
 where `isMobile` is a boolean describing whether Autosuggest operates on a mobile device or not. You can use [kaimallea/isMobile](https://github.com/kaimallea/isMobile), for example, to determine that.
+
+<a name="selectFirstSuggestion"></a>
+#### selectFirstSuggestion (optional)
+
+Defaulting to false, `selectFirstSuggestion={true}` will highlight the first suggestion in the list.
+
+```xml
+<Autosuggest selectFirstSuggestion={true} ... />
+```
 
 <a name="themeProp"></a>
 #### theme (optional)
