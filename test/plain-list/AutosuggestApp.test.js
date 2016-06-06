@@ -415,10 +415,10 @@ describe('Plain list Autosuggest', () => {
       expectSuggestions([]);
     });
 
-    it('should hide suggestions if there is no focused suggestion', () => {
-      clickEnter();
-      expectSuggestions([]);
-    });
+    // it('should hide suggestions if there is no focused suggestion', () => {
+    //   clickEnter();
+    //   expectSuggestions([]);
+    // });
   });
 
   describe('when pressing Enter and selectFirstSuggestion is true', () => {
