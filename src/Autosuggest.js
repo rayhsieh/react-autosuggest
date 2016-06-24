@@ -228,6 +228,9 @@ class Autosuggest extends Component {
         this.maybeSelectFirstSuggestion(event, value);
       },
       onKeyDown: (event, data) => {
+        if (event.keyCode === 229) {
+          return;
+        }
         switch (event.key) {
           case 'ArrowDown':
           case 'ArrowUp':
