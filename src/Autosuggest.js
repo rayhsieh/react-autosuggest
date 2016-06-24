@@ -251,10 +251,10 @@ class Autosuggest extends Component {
           case 'Enter': {
             const focusedSuggestion = this.getFocusedSuggestion();
 
+            closeSuggestions('enter');
             if (focusedSuggestion !== null) {
               const newValue = getSuggestionValue(focusedSuggestion);
 
-              closeSuggestions('enter');
               onSuggestionSelected(event, {
                 suggestion: focusedSuggestion,
                 suggestionValue: newValue,
